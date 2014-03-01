@@ -23,19 +23,11 @@ int main(int argc, char* args[])
 //		else
 //			cout << "AKS    : " << i << " is not a prime" << endl;
 
-		bool mr_prime = mr(i, 10000);
+		bool mr_prime = mr_par(i,1000);
 		if(mr_prime)
 			cout << "MR     : " << i << " is a prime" << endl;
 		else
 			cout << "MR     : " << i << " is not a prime" << endl;
-
-		//usleep(1000000);
-		//bool is_prime = IsPrime(i);
-		
-		//if(is_prime)
-		//	cout << "isPrime: " << i << " is a prime" << endl;
-		//else
-		//	cout << "isPrime: " << i << " is not a prime" << endl;
 	}	
 	return 0;
 	
