@@ -1,2 +1,4 @@
 all:
-	g++ main.cpp -o rand -lntl
+	g++ ss.cpp -o ss -lntl
+ss:
+	g++ ss.cpp -o ss
