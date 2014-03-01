@@ -1,4 +1,7 @@
 #include <iostream>
+
+
+
 #include <math.h>
 #include <unistd.h>
 #include "aks.cpp"
@@ -6,8 +9,12 @@
 
 using namespace std;
 
+
+
 int main(int argc, char* args[])
 {
+	ss(10,3);
+	/*
 	for(int i = 2; i < 200; i++)
 	{
 		bool aks_prime = aks(i);
@@ -31,4 +38,5 @@ int main(int argc, char* args[])
 		//	cout << "isPrime: " << i << " is not a prime" << endl;
 	}	
 	return 0;
+	*/
 }
