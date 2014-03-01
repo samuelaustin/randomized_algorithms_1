@@ -1,15 +1,13 @@
 #include <iostream>
-
-
-
+#include <cstdlib>
+#include <ctime>
 #include <math.h>
 #include <unistd.h>
 #include "aks.cpp"
 #include "mr.cpp"
+#include "ss.cpp"
 
 using namespace std;
-
-
 
 int main(int argc, char* args[])
 {
