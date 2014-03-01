@@ -5,23 +5,25 @@
 #include <unistd.h>
 #include "aks.cpp"
 #include "mr.cpp"
-#include "ss.cpp"
+#include <omp.h>
+//#include "ss.cpp"
 
 using namespace std;
 
 int main(int argc, char* args[])
 {
-	ss(10,3);
-	/*
-	for(int i = 2; i < 200; i++)
+	//ss(10,3);
+	
+	//#pragma omp parallel for
+	for(int i = 2; i < 5000; i++)
 	{
-		bool aks_prime = aks(i);
-		if(aks_prime)
-			cout << "AKS    : " << i << " is a prime" << endl;
-		else
-			cout << "AKS    : " << i << " is not a prime" << endl;
+//		bool aks_prime = aks(i);
+//		if(aks_prime)
+//			cout << "AKS    : " << i << " is a prime" << endl;
+//		else
+//			cout << "AKS    : " << i << " is not a prime" << endl;
 
-		bool mr_prime = mr(i, 1);
+		bool mr_prime = mr(i, 10000);
 		if(mr_prime)
 			cout << "MR     : " << i << " is a prime" << endl;
 		else
@@ -36,5 +38,5 @@ int main(int argc, char* args[])
 		//	cout << "isPrime: " << i << " is not a prime" << endl;
 	}	
 	return 0;
-	*/
+	
 }

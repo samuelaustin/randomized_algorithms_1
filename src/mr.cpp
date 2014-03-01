@@ -2,6 +2,7 @@
 #include <math.h>
 #include <cstdlib>
 #include <ctime>
+#include <omp.h>
 //#include "util.cpp"
 
 using namespace std;
@@ -28,7 +29,10 @@ bool mr(int n, int it)
 	int s = n-1;
 	while(s%2 == 0)
 		s = s/2;
-	for(int i = 0; i < it; i++)
+	
+	bool ans = true;
+	//#pragma omp parallel for
+	for(int i = 0; i < it & ans; i++)
 	{
 		int r = rand();
 		int a = (r%(n-1))+1;
@@ -40,7 +44,10 @@ bool mr(int n, int it)
 			temp = 2 * temp;
 		}
 		if(mod!=n-1 && temp%2==0)
-			return false;
+		{
+			ans = false;
+			break;
+		}
 	}
-	return true;
+	return ans;
 }

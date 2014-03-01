@@ -1,4 +1,4 @@
 all:
-	g++ ss.cpp -o ss -lntl
+	g++ main.cpp -o rand -lntl -fopenmp
 ss:
 	g++ ss.cpp -o ss
