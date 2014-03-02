@@ -1,21 +1,17 @@
-#include <iostream>
-#include <math.h>
-#include <cstdlib>
 #include <sys/time.h>
 #include <omp.h>
-//#include "util.cpp"
 
 using namespace std;
 
 int modPow(int a, int b, int c)
 {
 	int res = 1;
-	for(int i = 0; i < b; i++)
+	for(int i=0; i<b; i++)
 	{
-		res *= a;
-		res = res % c;
+		res*=a;
+		res =res%c;
 	}
-	return res % c;
+	return res%c;
 }
 
 void seed_rand()
@@ -27,8 +23,8 @@ void seed_rand()
 
 bool mr_par(int n, int it)
 {
-	if(n == 2 || n == 3) return true;
-	if(n < 2 || (n != 2 && n%2==0)) return false;
+	if(n == 2 ||  n == 3		) return true;
+	if(n  < 2 || (n != 2 && n%2==0)	) return false;
 	seed_rand();
 
 	int s = n-1;
@@ -63,9 +59,8 @@ bool mr_par(int n, int it)
 
 bool mr(int n, int it)
 {
-	if(n == 2 || n == 3) return true;
-	if(n < 2 || (n != 2 && n%2==0)) return false;
-	
+	if(n == 2 ||  n == 3		) return true;
+	if(n  < 2 || (n != 2 && n%2==0)	) return false;
 	seed_rand();
 
 	int s = n-1;

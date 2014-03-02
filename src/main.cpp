@@ -1,40 +1,32 @@
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <math.h>
-#include <unistd.h>
+
 #include "aks.cpp"
 #include "mr.cpp"
-#include <omp.h>
-//#include "ss.cpp"
 
 using namespace std;
 
 int main(int argc, char* args[])
 {	
-	for(int i = 2; i < 6000; i++)
+	for(int i=2; i<1000; i++)
 	{
-		bool aks_prime = aks(i);
-		if(aks_prime)
-			cout << "AKS     : " << i << " is a prime" << endl;
+		if(aks(i))
+			cout<<"AKS PRIME "<<i<<endl;
 		else
-			cout << "AKS     : " << i << " is not a prime" << endl;
+			cout<<"AKS       "<<i<<endl;
 	}
-	for(int i = 2; i < 6000; i++)
+	for(int i=2; i<10; i++)
 	{
-		bool mr_prime = mr(i,2500);
-		if(mr_prime)
-			cout << "MR     : " << i << " is a prime" << endl;
+		if(mr(i,100))
+			cout<<"MR PRIME "<<i<<endl;
 		else
-			cout << "MR     : " << i << " is not a prime" << endl;
+			cout<<"MR       "<<i<<endl;
 	}
-	for(int i = 2; i < 6000; i++)
+	for(int i=2; i<60000; i++)
 	{
-		bool mr_par_prime = mr_par(i,2500);
-		if(mr_par_prime)
-			cout << "MR_par     : " << i << " is a prime" << endl;
+		if(mr_par(i,200))
+			cout<<"MR PARALLEL PRIME "<<i<<endl;
 		else
-			cout << "MR_par     : " << i << " is not a prime" << endl;
-	}	
+			cout<<"MR PARALLEL       "<<i<<endl;
+	}
 	return 0;
 }
