@@ -1,47 +1,30 @@
-#include <sys/time.h>
 #include <omp.h>
-
+#include "util.cpp"
+#include <iostream>
 using namespace std;
 
-int modPow(int a, int b, int c)
-{
-	int res = 1;
-	for(int i=0; i<b; i++)
-	{
-		res*=a;
-		res =res%c;
-	}
-	return res%c;
-}
-
-void seed_rand()
-{
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    srand(tv.tv_sec * tv.tv_usec);
-}
-
-bool mr_par(int n, int it)
+bool mr_par(unsigned long n, unsigned int it)
 {
 	if(n == 2 ||  n == 3		) return true;
 	if(n  < 2 || (n != 2 && n%2==0)	) return false;
 	seed_rand();
 
-	int s = n-1;
+	unsigned long s = n-1;
 	while(s%2 == 0)
 		s = s/2;
 	
 	bool ans = true;
 	#pragma omp parallel for
-	for(int i = 0; i < it; i++)
+	for(unsigned int i = 0; i < it; i++)
 	{
 		#pragma omp flush (ans)
 		if(ans)
 		{
-			int r 		= rand();
-			int a 		= (r%(n-1))+1;
-			int temp 	= s;
-			int mod 	= modPow(a, temp, n);
+			unsigned long r 	= rand();
+			unsigned long a 	= (r%(n-1))+1;
+			unsigned long temp 	= s;
+			unsigned long mod 	= congruent_mod(a,temp,n);
+			
 			while(temp!=n-1 && mod!=1 && mod!=n-1)
 			{
 				mod	= (mod*mod)%n;
@@ -57,24 +40,23 @@ bool mr_par(int n, int it)
 	return ans;
 }
 
-bool mr(int n, int it)
+bool mr(unsigned long n, unsigned int it)
 {
 	if(n == 2 ||  n == 3		) return true;
 	if(n  < 2 || (n != 2 && n%2==0)	) return false;
 	seed_rand();
 
-	int s = n-1;
+	unsigned long s = n-1;
 	while(s%2 == 0)
 		s = s/2;
 	
-	
 	bool ans = true;
-	for(int i = 0; i < it ; i++)
+	for(unsigned int i = 0; i < it ; i++)
 	{
-		int r = rand();
-		int a = (r%(n-1))+1;
-		int temp = s;
-		int mod = modPow(a, temp, n);
+		unsigned long r = rand();
+		unsigned long a = (r%(n-1))+1;
+		unsigned long temp = s;
+		unsigned long mod = congruent_mod(a, temp, n);
 		while(temp!=n-1 && mod!=1 && mod!=n-1)
 		{
 			mod = (mod*mod)%n;

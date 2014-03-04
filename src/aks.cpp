@@ -1,19 +1,19 @@
-#include <iostream>
-#include <math.h>
 #include "util.cpp"
 #include "NTL/ZZ.h"
 #include "NTL/ZZ_pX.h"
+#include <gmp.h>
+#include <gmpxx.h>
 
 using namespace std;
 using namespace NTL;
 
-bool aks(int n)
+bool aks(unsigned long n)
 {
 	//1
 	for(int a = 2; pow(a, 2) <= n; a++)
 	{
-		int prod;
-		int b = 2;
+		unsigned long prod;
+		unsigned long b = 2;
 		do {
 			prod = pow(a,b);
 			if(prod==n)
@@ -23,20 +23,20 @@ bool aks(int n)
 	}
 	//2
 	float t = pow(log2((float)n),2);
-	int r;
+	unsigned int r;
 	for(r=2;r<n;r++)
 		if(mo(r,n)>t)
 		{
 			break;
 		}
 	//3
-	for(int a = 0; 1 < gcd(a,n) && gcd(a,n) < n; a++)
+	for(unsigned int a = 0; 1 < gcd(a,n) && gcd(a,n) < n; a++)
 		if(a<=r)
-	//4		return false;
-	if(n <= r)
-	{
-		return true;
-	}
+			//4		return false;
+			if(n <= r)
+			{
+				return true;
+			}
 	//5
 	ZZ_p::init(to_ZZ(n));
 	ZZ_pX f(r, 1); 
@@ -44,7 +44,7 @@ bool aks(int n)
 	const ZZ_pXModulus pf(f);
 	ZZ_pX rPoly(1, 1);		// x
 	PowerMod(rPoly, rPoly, n, pf);	// x^n
-	
+
 	unsigned int a;
 	for(int a = 1; a <= 2*sqrt((float)r)*log2((float)n); a++)
 	{
@@ -59,3 +59,4 @@ bool aks(int n)
 	}
 	return true;
 }
+

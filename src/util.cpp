@@ -1,5 +1,13 @@
+#ifndef UTIL
+#define UTIL
+
 #include <iostream>
 #include <math.h>
+#include <sys/time.h>
+#include <cstdlib>
+#include <gmp.h>
+#include <gmpxx.h>
+#include "isPrime.cpp"
 
 using namespace std;
 
@@ -330,48 +338,102 @@ public:
 
 int gcd(int a, int b)
 {
-	int temp;
-	while(b != 0)
+	int t;
+	while(b!=0)
 	{
-		temp = b;
+		t = b;
 		b = a%b;
-		a = temp;
+		a = t;
 	}
 	return a;
 }
 
-int mo(int r, int n)
+int mo(int r,int n)
 {
-	if(gcd(r, n) > 1)
+	if(gcd(r,n)>1)
 		return 0;
 	else
 	{
 		int order = 1;
-		int mod_exp = r;
-		while(mod_exp != 1)
+		int me = r;
+		while(me != 1)
 		{
 			order += 1;
-			mod_exp = (mod_exp*r)%n;
+			me = (me*r)%n;
 		}
 		return order;
 	}
 }
 
-bool isPrime(int n)
+unsigned long congruent_mod(unsigned long a,unsigned long b, unsigned long c)
 {
-	for(int i = 0; i*i <= n; i++)
-		if(n%i == 0)
-			return false;
-	return true;
+	mpz_t a_mpz;
+	mpz_init(a_mpz);
+	mpz_set_ui(a_mpz, a);
+	
+	mpz_t b_mpz;
+	mpz_init(b_mpz);
+	mpz_set_ui(b_mpz, b);
+	
+	mpz_t c_mpz;
+	mpz_init(c_mpz);
+	mpz_set_ui(c_mpz, c);
+	
+	mpz_t x_mpz;
+	mpz_init(x_mpz);
+	mpz_powm(x_mpz,a_mpz,b_mpz,c_mpz);
+
+	unsigned long result = 0;
+	mpz_export(&result,0,-1,sizeof(result),0,0,x_mpz);
+	
+	return result;
 }
 
-/*
-int phi(int n)
+void seed_rand()
 {
-	if (n < 2)
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    srand(tv.tv_sec * tv.tv_usec);
+}
+
+int jacobi(int a,int n)
+{
+	if (!a) 
 		return 0;
-	int s = 0;
-	for(int a = 1; a <= n; a++)
-		s+= (gcd(a, n) == 1);
-	return s;
-}*/
+	int ans = 1;
+	int temp;
+	if (a<0)
+	{
+		a=-a;
+		if (n%4==3) 
+			ans=-ans; 
+	}
+	if (a==1) 
+		return ans;
+	while(a)
+	{
+		if(a<0)
+		{
+			a=-a;
+			if(n%4==3) 
+				ans=-ans;  
+		}
+		while(a%2==0)
+		{
+			a=a/2;
+			if(n%8==3||n%8==5) 
+				ans=-ans;    
+		}
+		swap(a,n);
+		if(a%4==3&&n%4==3) 
+			ans=-ans;
+		a=a%n;
+		if(a>n/2) 
+			a=a-n; 
+	}
+	if(n==1) 
+		return ans;
+	return 0; 
+}
+
+#endif
