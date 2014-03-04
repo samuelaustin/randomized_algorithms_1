@@ -1,110 +1,117 @@
-#include <sys/time.h>
+#include <cstring>
 #include <iostream>
-#include <stdlib.h>
-#include <math.h>
+#include <cstdlib>
 
 using namespace std;
 
-int mod(long a, long b)
+int modulo(int base, int exponent, int mod)
 {
-   if(b<0)
-     return mod(-a,-b);   
-   int ret=a%b;
-   if(ret<0)
-     ret+=b;
-   return ret;
-}
-
-//a==b(mod n)
-bool congruent_modulo(int a,int b,int n)
-{
-			cout << "ERROR NEGATIVE " << endl;
-		cout << "a: " << a << endl;
-		cout << "b: " << b << endl;
-		cout << "abs(a-b): " << abs(a-b) << endl;
-		cout << "n: " << n << endl;
-		cout << "result: " << abs(a-b)%n << endl;
-	if(abs(a-b)%n==0)
-		return true;
-	return false;
-}
-
-
-void seed_rand()
-{
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    srand(tv.tv_sec * tv.tv_usec);
-}
-
-int GCD(int a, int b)
-{
-	if(a==1&&b==0)
-		return 1;
-	else
+	int x = 1;
+	int y = base;
+	while (exponent > 0)
 	{
-		int Intermediate;
-		while(b!=0)
-		{
-			Intermediate=a;
-			a=b;
-			b=mod(Intermediate,a);
-		}
-		return a;
+		if (exponent % 2 == 1)
+			x = (x * y) % mod;
+
+		y = (y * y) % mod;
+		exponent = exponent / 2;
 	}
-	return a;
+	return x % mod;
 }
 
+int jacobi(int a,int n)
+{
+	if (!a) 
+		return 0;
 
-int Jacobi(int a, int n) {
-    int ans;
+	int ans = 1;
+	int temp;
 
-    if (a == 0)
-        ans = (n == 1) ? 1 : 0;
-    else if (a == 2) {
-        switch ( n % 8 ) {
-            case 1:
-            case 7:
-                    ans = 1;
-                    break;
-            case 3:
-            case 5:
-                    ans = -1;
-                    break;
-        }
-    }
-    else if ( a >= n )
-        ans = Jacobi(a%n, n);
-    else if ( a % 2 == 0 )
-        ans = Jacobi(2,n)*Jacobi(a/2, n);
-    else
-        ans = ( a % 4 == 3 && n % 4 == 3 ) ? -Jacobi(n,a) : Jacobi(n,a);
-    return ans;
+	if (a < 0)
+	{
+		a = -a;
+		if (n % 4 == 3) 
+			ans=-ans; 
+	}
+
+	if (a == 1) 
+		return ans;
+
+	while (a)
+	{
+		if (a < 0)
+		{
+			a = -a;
+			if (n % 4 == 3) 
+				ans = -ans;  
+		}
+		while (a % 2 == 0)
+		{
+			a = a / 2;
+			if (n % 8 == 3 || n % 8 == 5) 
+				ans = -ans;    
+		}
+		swap(a, n);
+
+		if (a % 4 == 3 && n % 4 == 3) 
+			ans = -ans;
+
+		a = a % n;
+		if (a > n / 2) 
+			a = a - n; 
+	}
+
+	if (n == 1) 
+		return ans;
+	return 0; 
 }
-
 
 bool ss(int n, int k)
 {
-	if(n==2)
-		return true;
-	if(n%2==0||n<2)
+	if (n < 2) 
 		return false;
-	for(int i=0; i<k; i++)
+
+	if (n != 2 && n % 2 == 0) 
+		return false;
+	seed_rand();
+	for (int i = 0; i < k; i++)
 	{
-		seed_rand();
-		int r = rand()%(n) + 1;
-		
-		cout << "trace" << endl;
-		cout << "power: " << pow(r,(n-1)/2) << endl;
-		if( congruent_modulo( Jacobi(r,n), pow(r,(n-1)/2), n) )
+		int a = rand() % (n - 1) + 1;
+		int jacobian = (n + jacobi(a, n)) % n;
+		int mod = modulo(a, (n - 1) / 2, n);
+
+		if (!jacobian || mod != jacobian)
 			return false;
 	}
 	return true;
 }
 
-int main(int argc, char* args[])
+bool ss_par(int n, int k)
 {
-	//cout << congruent_modulo(38,14,12) << endl;
-	cout << ss(31,31) << endl;
-	return 0;
+	if (n < 2) 
+		return false;
+
+	if (n != 2 && n % 2 == 0) 
+		return false;
+	seed_rand();
+
+	bool ans = true;
+	#pragma omp parallel for
+	for (int i = 0; i < k; i++)
+	{
+		#pragma omp flush (ans)
+		if(ans)
+		{
+			int a = rand() % (n - 1) + 1;
+			int jacobian = (n + jacobi(a, n)) % n;
+			int mod = modulo(a, (n - 1) / 2, n);
+
+			if (!jacobian || mod != jacobian)
+			{
+				ans = false;
+				#pragma omp flush (ans)
+			}
+		}
+	}
+	return ans;
 }
