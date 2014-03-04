@@ -30,9 +30,10 @@ bool mr(int n, int it)
 	while(s%2 == 0)
 		s = s/2;
 	
+	
 	bool ans = true;
-	//#pragma omp parallel for
-	for(int i = 0; i < it & ans; i++)
+	#pragma omp parallel for
+	for(int i = 0; i < it ; i++)
 	{
 		int r = rand();
 		int a = (r%(n-1))+1;
@@ -44,9 +45,8 @@ bool mr(int n, int it)
 			temp = 2 * temp;
 		}
 		if(mod!=n-1 && temp%2==0)
-		{
+		{	
 			ans = false;
-			break;
 		}
 	}
 	return ans;
