@@ -1,0 +1,40 @@
+\makeatletter
+\let\my@xfloat\@xfloat
+\makeatother
+\documentclass[compressed,final,notitlepage,narroweqnarray,inline,twoside,]{ieee}
+
+\makeatletter
+\def\@xfloat#1[#2]{
+\my@xfloat#1[#2]
+\def\baselinestretch{1}
+\@normalsize \normalsize
+}
+\makeatother
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{amsmath} 
+\usepackage{amsfonts}
+
+
+\title[TITLE]{A Comparative Study Between Primallity Testing Algorithms.}
+\author{By, Author A\\ \& \\ Author B \\ TU Delft}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This is the abstract ;-)
+\end{abstract}
+
+\section{Introduction}
+This is a section ;-)
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.48\textwidth]{fig1}
+%\caption{ (a) Lasso regression leading to a sparse solution (intersection point) and (b) Ridge regression leading to a non sparse solution (intersection point).}
+%\label{f1}
+%\end{figure}\\
+
+\bibliographystyle{plain}
+\bibliography{mybib} 
+\end{document}

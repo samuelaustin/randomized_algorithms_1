@@ -7,6 +7,8 @@
 using namespace std;
 using namespace NTL;
 
+
+//Dit algorithme presteerd nog steeds slechter dan isPrime.
 bool aks(unsigned long n)
 {
 	//1
