@@ -71,29 +71,40 @@ def test_mr_par(i, j, k):
 	plot.plot(RANGE,data,'+',label="mr_par(n," + str(k) + ")")
 	return data 
 
-test_isPrime_par(2,1000)
-test_aks(2,1000)
-plot.legend()	
-plot.show()
+def compare_isPrime_mr_runtime_complexity():
+	#Small numbers
+	test_mr(1000+2, 1000+60000, 25)
+	test_isPrime(1000+2, 1000+60000)
+	plot.legend()	
+	plot.show()
 
-test_isPrime_par(715827883,715827883+4)
-test_aks(715827883,715827883+4)
-plot.legend()	
-plot.show()
+	#Large numbers
+	test_mr(515396078+2, 515396078+60000, 25)
+	test_isPrime(515396078+2, 515396078+60000)
+	plot.legend()	
+	plot.show()
 
-test_mr(100000+2, 100000+60000, 50)
-test_mr_par(100000+2, 100000+60000, 50)
-plot.legend()	
-plot.show()
+def compare_isPrime_aks_runtime_complexity():
+	test_isPrime_par(2,1000)
+	test_aks(2,1000)
+	plot.legend()	
+	plot.show()
+
+def compare_mr_mrp_runtime_complexity():
+	test_mr_par(100000+2, 100000+60000, 50)
+	test_mr(100000+2, 100000+60000, 50)
+	plot.legend()	
+	plot.show()
+
 
 test_ss(100000+2, 100000+60000, 50)
 test_ss_par(100000+2, 100000+60000, 50)
 plot.legend()	
 plot.show()
 
-test_mr(100000+2, 100000+60000, 50)
-test_mr_par(100000+2, 100000+60000, 50)
-test_ss(100000+2, 100000+60000, 50)
-test_ss_par(100000+2, 100000+60000, 50)
-plot.legend()	
-plot.show()
+#test_mr(100000+2, 100000+60000, 50)
+#test_mr_par(100000+2, 100000+60000, 50)
+#test_ss(100000+2, 100000+60000, 50)
+#test_ss_par(100000+2, 100000+60000, 50)
+#plot.legend()	
+#plot.show()
