@@ -11,6 +11,8 @@ using namespace NTL;
 //Dit algorithme presteerd nog steeds slechter dan isPrime.
 bool aks(unsigned long n)
 {
+	if(n  < 2 || (n != 2 && n%2==0)	) return false;
+
 	//1
 	for(int a = 2; pow(a, 2) <= n; a++)
 	{

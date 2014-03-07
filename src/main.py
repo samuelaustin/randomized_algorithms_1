@@ -17,6 +17,15 @@ def test_isPrime(i, j):
 	plot.plot(RANGE,data,'+',label="isPrime(n)")
 	return data 
 
+def test_isPrime_par(i, j):
+	RANGE 	= range(i,j)
+	data 	= numpy.zeros(len(RANGE))
+	print("isPrime_par")
+	for i in range(0, len(RANGE)):
+		data[i]	= time_func(5,prime.isPrime_par,RANGE[i])
+	plot.plot(RANGE,data,'+',label="isPrime_par(n)")
+	return data 
+
 def test_aks(i, j):
 	RANGE 	= range(i,j)
 	data 	= numpy.zeros(len(RANGE))
@@ -62,8 +71,13 @@ def test_mr_par(i, j, k):
 	plot.plot(RANGE,data,'+',label="mr_par(n," + str(k) + ")")
 	return data 
 
-test_isPrime(2,1000)
+test_isPrime_par(2,1000)
 test_aks(2,1000)
+plot.legend()	
+plot.show()
+
+test_isPrime_par(715827883,715827883+4)
+test_aks(715827883,715827883+4)
 plot.legend()	
 plot.show()
 
@@ -77,9 +91,9 @@ test_ss_par(100000+2, 100000+60000, 50)
 plot.legend()	
 plot.show()
 
-test_mr(100000+2, 100000+60000, 10)
-test_mr_par(100000+2, 100000+60000, 10)
-test_ss(100000+2, 100000+60000, 10)
-test_ss_par(100000+2, 100000+60000, 10)
+test_mr(100000+2, 100000+60000, 50)
+test_mr_par(100000+2, 100000+60000, 50)
+test_ss(100000+2, 100000+60000, 50)
+test_ss_par(100000+2, 100000+60000, 50)
 plot.legend()	
 plot.show()

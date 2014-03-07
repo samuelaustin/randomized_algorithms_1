@@ -7,6 +7,7 @@ using namespace boost::python;
 BOOST_PYTHON_MODULE(prime)
 {
 	def("isPrime",isPrime);
+	def("isPrime_par",isPrime_par);
 	def("aks",aks);
 	def("mr",mr);
 	def("mr_par",mr_par);

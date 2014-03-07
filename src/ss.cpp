@@ -4,10 +4,7 @@ using namespace std;
 
 bool ss(unsigned long n, unsigned int k)
 {
-	if (n < 2) 
-		return false;
-
-	if (n != 2 && n%2 == 0) 
+	if (n != 2 && n%2 == 0 || n<2) 
 		return false;
 	seed_rand();
 	for(unsigned int i = 0; i < k; i++)
@@ -24,10 +21,7 @@ bool ss(unsigned long n, unsigned int k)
 
 bool ss_par(unsigned long n, int k)
 {
-	if (n<2) 
-		return false;
-
-	if (n!=2 && n%2 == 0) 
+	if (n!=2 && n%2 == 0 || n<2) 
 		return false;
 	seed_rand();
 
