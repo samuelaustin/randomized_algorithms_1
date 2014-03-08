@@ -348,14 +348,14 @@ int gcd(int a, int b)
 	return a;
 }
 
-int mo(int r,int n)
+unsigned long long mo(unsigned long long r,unsigned long long n)
 {
 	if(gcd(r,n)>1)
 		return 0;
 	else
 	{
-		int order = 1;
-		int me = r;
+		unsigned long long order = 1;
+		unsigned long long me = r;
 		while(me != 1)
 		{
 			order += 1;
@@ -365,7 +365,7 @@ int mo(int r,int n)
 	}
 }
 
-unsigned long congruent_mod(unsigned long a,unsigned long b, unsigned long c)
+unsigned long long congruent_mod(unsigned long long a,unsigned long long b, unsigned long long c)
 {
 	mpz_t a_mpz;
 	mpz_init(a_mpz);
@@ -383,7 +383,7 @@ unsigned long congruent_mod(unsigned long a,unsigned long b, unsigned long c)
 	mpz_init(x_mpz);
 	mpz_powm(x_mpz,a_mpz,b_mpz,c_mpz);
 
-	unsigned long result = 0;
+	unsigned long long result = 0;
 	mpz_export(&result,0,-1,sizeof(result),0,0,x_mpz);
 	
 	return result;
@@ -436,4 +436,5 @@ int jacobi(int a,int n)
 	return 0; 
 }
 
+ 
 #endif
