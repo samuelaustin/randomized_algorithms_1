@@ -22,7 +22,7 @@ bool mr_par(unsigned long long n, unsigned int it)
 		{
 			unsigned long long r 	= rand();
 			unsigned long long a 	= (r%(n-1))+1;
-			unsigned long long temp 	= s;
+			unsigned long long temp = s;
 			unsigned long long mod 	= congruent_mod(a,temp,n);
 			
 			while(temp!=n-1 && mod!=1 && mod!=n-1)

@@ -386,6 +386,11 @@ unsigned long long congruent_mod(unsigned long long a,unsigned long long b, unsi
 	unsigned long long result = 0;
 	mpz_export(&result,0,-1,sizeof(result),0,0,x_mpz);
 	
+	mpz_clear(a_mpz);
+	mpz_clear(b_mpz);
+	mpz_clear(c_mpz);
+	mpz_clear(x_mpz);
+	
 	return result;
 }
 
