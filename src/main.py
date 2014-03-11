@@ -383,6 +383,20 @@ def compare_accuracy_FPT(i,j,n,k):
 	plot.legend()
 	plot.show()
 
+def compare_isPrime_Randomized(i,j,k):
+	_,ax = plot.subplots()
+	ax.set_title('Trial Division and Randomized run times')
+	ax.set_ylabel('Run Time (us)')
+	ax.set_xlabel('Number n')
+
+	test_mr(i,j,k)
+	test_ss(i,j,k)
+	test_fpt(i,j,k)
+	test_isPrime(i,j)
+
+	plot.legend()
+	plot.show()
+		
 
 #compare_isPrime_isPrimep_runtime_complexity()
 #compare_mr_mrp_runtime_complexity()
@@ -392,7 +406,7 @@ def compare_accuracy_FPT(i,j,n,k):
 #compare_all_runtime_complexity()
 #compare_all_parallel_runtime_complexity()
 
-visualize_isPrime(2, 3*10**6)
+#visualize_isPrime(2, 3*10**6)
 #compare_isPrime_aks_runtime_complexity()
 
 #compare_accuracy(2,500000,1)
@@ -402,7 +416,7 @@ visualize_isPrime(2, 3*10**6)
 
 #compare_accuracy_FPT(1,200000,200000,25)
 
-
+compare_isPrime_Randomized(1000000000,1000010000,10)
 
 
 #for i in range(2,35):
