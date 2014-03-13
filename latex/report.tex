@@ -34,7 +34,7 @@ In this paper we compare three one sided Monte Carlo primality testing algorithm
 \end{abstract}
 \section{Introduction}
 \subsection{Fermat's Primality Test}
-Fermat's primality test is quite simple. It makes use of fermat’s little theorem[FLT] which is stated as followed: 
+Fermat's primality test is quite simple. It makes use of fermat’s little theorem \cite{FLT} which is stated as followed:  
 \begin{equation}
 a^{p-1} \equiv  1 \mod p
 \end{equation}
@@ -54,7 +54,7 @@ This theorem holds for any $1\leq a < p$ when $p$ is a prime number and a and in
  \KwRet{Prime}\;
 \end{algorithm}
 \subsection{Solovay-Strassen Primality Test}
-The Solovay Strassen primality test[SS] is built upon the ideas of the original fermat’s primality test. The Solovay-Strassen primality test indeed takes a similar approach where instead of fermat’s little theorem the following theorem discovered by euler is used:
+The Solovay Strassen primality test \cite{SS} is built upon the ideas of the original fermat’s primality test. The Solovay-Strassen primality test indeed takes a similar approach where instead of fermat’s little theorem the following theorem discovered by euler is used:
 \begin{equation}
 a^{(p-1)/2} \equiv \begin{pmatrix}\frac{a}{b}\end{pmatrix} \mod p
 \end{equation}
@@ -81,7 +81,7 @@ Were (a/b) is called the jacobi symbol. This theorem will always hold for any ba
 \end{algorithm}
 The run time complexity of the Solovay-Strassen Primality test is $O(k \cdot log^3 n)$. 
 \subsection{Miller-Rabin Primality Test}
-The Miller-Rabin test[MR] is based on the Fermat test, just like the Solovay-Strassen test, but also includes elements of Euclid’s lemma.  Euclid’s lemma is based on the following:\\\\
+The Miller-Rabin test \cite{MR} is based on the Fermat test, just like the Solovay-Strassen test, but also includes elements of Euclid’s lemma.  Euclid’s lemma is based on the following:\\\\
 if $x^2 \equiv 1 \mod p	$ then $(x-1)(x+1) \equiv 0 \mod p$\\\\
 This means that prime $p$ can divide the product $(x-1)(x+1)$. Euclid’s lemma states that prime $p$ divides one of the factors $(x-1)$ or $(x+1)$. This implies that $x$ is congruent to $1 \mod p$ or $-1 \mod p$.\\\\ Based on this, the following must hold for any prime number $p>2$:\\
 $p-1$ must be an even number and can be written as $2^s\cdot d$ where s and d are both positive and d is an odd number.\\\\
@@ -186,7 +186,7 @@ Processor & Intel Core i7-3630QM 2.4 GHz (8 cores)\\\hline
 Memory: & 7.7 GB DDR3 \\\hline
 OS: & Linux Mint 16 (Petra)\\\hline
 \end{tabular}
-The algorithms have been implemented in C++ and we use the Open Multi Processor library[?] in order to parallelize our code. For modulo exponentiation we used the GNU Multiple Precision Library[?] as these exponentiations easily get very large.
+The algorithms have been implemented in C++ and we use the Open Multi Processor library\cite{OMP} in order to parallelize our code. For modulo exponentiation we used the GNU Multiple Precision Library\cite{GMP} as these exponentiations easily get very large.
 \subsection{Monte Carlo Primality Tests}
 Next to the accuracy of the randomized primality tests, it is also useful to know the run time in order to determine which algorithm is most viable. For these tests we based the value k, the number of iterations run within each algorithm, on the theoretical accuracy of each primality test. As Miller-Rabin is twice as accurate compared to the other two we only run half the number of times.\\\\ As the speed of the randomized algorithms is quite high we used large numbers to generate the run time data. We used a range of 360000 numbers starting at 9999990074039999. For the first test we set the value k as 5 for the Miller-Rabin test and 10 for the others. Each primality test for each algorithm was run 5 times and the average run time was used to plot the graph.
 \begin{figure}[H]
