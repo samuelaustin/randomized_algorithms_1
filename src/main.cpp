@@ -6,12 +6,12 @@
 using namespace std;
 int main(int argc,char* args[])
 {	
-	for(int i=1; i<500000; i++)
+	for(int i=1; i<100; i++)
 	{
-		if(mr_par(i,25))
-			cout<<"MR PRIME "<<i<<endl;
+		if(aks_p(i))
+			cout<<"AKS_P PRIME "<<i<<endl;
 		else
-			cout<<"MR       "<<i<<endl;
+			cout<<"AKS_P       "<<i<<endl;
 	}
 	return 0;
 }

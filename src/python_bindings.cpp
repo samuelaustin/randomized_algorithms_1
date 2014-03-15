@@ -12,6 +12,7 @@ BOOST_PYTHON_MODULE(prime)
 	def("isPrime", isPrime);
 	def("isPrime_par", isPrime_par);
 	def("aks", aks);
+	def("aks_p", aks_p);
 	def("fpt", fpt);
 	def("fpt_p", fpt_p);
 	def("mr", mr);

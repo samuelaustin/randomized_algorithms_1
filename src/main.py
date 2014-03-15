@@ -55,6 +55,14 @@ def test_aks(i, j):
 	plot.plot(RANGE,data,'.',alpha=0.5,label="Agrawal-Kayal-Saxena(n)")
 	return data 
 
+def test_aks_par(i, j):
+	RANGE 	= range(i,j)
+	data 	= numpy.zeros(len(RANGE))
+	print("Agrawal-Kayal-Saxena Parallel")
+	for i in range(0, len(RANGE)):
+		data[i]	= time_func(5,prime.aks,RANGE[i])
+	plot.plot(RANGE,data,'.',alpha=0.5,label="Agrawal-Kayal-Saxena Parallel(n)")
+
 def test_ss(i, j, k):
 	RANGE 	= range(i,j)
 	data 	= numpy.zeros(len(RANGE))
@@ -147,7 +155,6 @@ def compare_isPrime_isPrimep_runtime_complexity():
 	test_isPrime_par(2,10000)
 	test_isPrime(2,10000)
 	plot.legend()
-	#plot.savefig("MRP_MR_small_runtime", figsize=(10,16),dpi=100)
 	plot.show()
 
 	_,ax = plot.subplots()
@@ -158,7 +165,27 @@ def compare_isPrime_isPrimep_runtime_complexity():
 	test_isPrime_par(1000000000,1000000000+10000)
 	test_isPrime(1000000000,1000000000+10000)
 	plot.legend()
-	#plot.savefig("MRP_MR_small_runtime", figsize=(10,16),dpi=100)
+	plot.show()
+
+def compare_aks_aksp_runtime_complexity():
+	_,ax = plot.subplots()
+	ax.set_title('Agrawal-Kayal-Saxena vs Agrawal-Kayal-Saxena Parallel')
+	ax.set_ylabel('Run Time (us)')
+	ax.set_xlabel('n')
+
+	test_aks_par(2,10000)
+	test_aks(2,10000)
+	plot.legend()
+	plot.show()
+
+	_,ax = plot.subplots()
+	ax.set_title('Agrawal-Kayal-Saxena vs Agrawal-Kayal-Saxena Parallel')
+	ax.set_ylabel('Run Time (us)')
+	ax.set_xlabel('n')
+
+	test_aks_par(100000,100000+5000)
+	test_aks(100000,100000+5000)
+	plot.legend()
 	plot.show()
 
 def compare_mr_mrp_runtime_complexity():
@@ -399,6 +426,7 @@ def compare_isPrime_Randomized(i,j,k):
 		
 
 #compare_isPrime_isPrimep_runtime_complexity()
+compare_aks_aksp_runtime_complexity()
 #compare_mr_mrp_runtime_complexity()
 #compare_ss_ssp_runtime_complexity()
 #compare_fpt_fptp_runtime_complexity()
@@ -416,7 +444,7 @@ def compare_isPrime_Randomized(i,j,k):
 
 #compare_accuracy_FPT(1,200000,200000,25)
 
-compare_isPrime_Randomized(1000000000,1000010000,10)
+#compare_isPrime_Randomized(1000000000,1000010000,10)
 
 
 #for i in range(2,35):
